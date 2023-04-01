@@ -1,0 +1,33 @@
+<script async src="https://pay.google.com/gp/p/js/pay.js" onload="onGooglePayLoad()">
+</script>
+
+<script>
+    function onGooglePayLoaded() {
+        const googlePayClient =
+            new google.payments.api.PaymentsClient({
+                environment: 'TEST'
+            })
+
+    }
+
+    const clientConfiguration = {
+        apiVersion: 2,
+        apiVersionMinor: 0,
+        allowedPaymentMethods: [cardPaymentMethod]
+    }
+
+    googlePayClient.isReadyToPay(clientConfiguration)
+        .the(function(response) {
+            if (response.result) {
+                console.log('test')
+            }
+        }).catch(function(err) {
+            console.log('Erro')
+        })
+
+    googlePayClient.createButton({
+        buttonColor: 'green',
+        buttonType: 'long',
+        onclick: onGooglePaymentsButtonClicked
+    })
+</script>
